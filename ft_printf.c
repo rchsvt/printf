@@ -12,22 +12,22 @@
 
 #include "ft_printf.h"
 
-static int	ft_format(char c, va_list args)
+static int	ft_format(char c, va_list *args)
 {
 	if (c == 'c')
-		return (ft_putchar(va_arg(args, int)));
+		return (ft_putchar(va_arg(*args, int)));
 	if (c == 's')
-		return (ft_putstr(va_arg(args, char *)));
+		return (ft_putstr(va_arg(*args, char *)));
 	if (c == 'd' || c == 'i')
-		return (ft_putnbr(va_arg(args, int)));
+		return (ft_putnbr(va_arg(*args, int)));
 	if (c == 'u')
-		return (ft_putunsigned(va_arg(args, unsigned int)));
+		return (ft_putunsigned(va_arg(*args, unsigned int)));
 	if (c == 'x')
-		return (ft_puthex(va_arg(args, unsigned int), "0123456789abcdef"));
+		return (ft_puthex(va_arg(*args, unsigned int), "0123456789abcdef"));
 	if (c == 'X')
-		return (ft_puthex(va_arg(args, unsigned int), "0123456789ABCDEF"));
+		return (ft_puthex(va_arg(*args, unsigned int), "0123456789ABCDEF"));
 	if (c == 'p')
-		return (ft_putptr(va_arg(args, void *)));
+		return (ft_putptr(va_arg(*args, void *)));
 	if (c == '%')
 		return (ft_putchar('%'));
 	return (0);
@@ -48,7 +48,7 @@ int	ft_printf(const char *format, ...)
 	{
 		if (format[i] == '%' && format[i + 1])
 		{
-			count += ft_format(format[i + 1], args);
+			count += ft_format(format[i + 1], &args);
 			i++;
 		}
 		else
