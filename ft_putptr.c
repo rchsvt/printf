@@ -14,11 +14,11 @@
 
 static int	ft_putptr_hex(unsigned long n)
 {
-	char	*base;
 	int		count;
+	char	*base;
 
-	base = "0123456789abcdef";
 	count = 0;
+	base = "0123456789abcdef";
 	if (n >= 16)
 		count += ft_putptr_hex(n / 16);
 	count += ft_putchar(base[n % 16]);
@@ -30,11 +30,11 @@ int	ft_putptr(void *ptr)
 	unsigned long	address;
 	int				count;
 
-	if (ptr == 0)
-		return (write(1, "0x0", 3));
+	if (!ptr)
+		return (ft_putstr("(nil)"));
 	address = (unsigned long)ptr;
 	count = 0;
-	count += write(1, "0x", 2);
+	count += ft_putstr("0x");
 	count += ft_putptr_hex(address);
 	return (count);
 }
